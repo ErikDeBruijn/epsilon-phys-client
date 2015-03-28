@@ -1,0 +1,30 @@
+---
+last_server: 192.168.0.46
+scan_ranges:
+- 192.168.0.46
+apiEndpoint: "/exec.lua"
+:httpServerPort: 80
+:protonServerPort: 35666
+:requestsPerSecond: 5
+:smokeAtDamage: 70
+:arduinoPins:
+  :signal: 7
+  :strobe: 6
+  :smoke: 5
+  :portD: 4
+:pollCode: |
+  player = getPlayerShip(-1)
+  if player == nil then return {error = "No ship"} end
+  shieldsVal = player:getShieldsActive()
+  hullVal = player:getHull()
+  hullMaxVal = player:getHullMax()
+  frontShieldVal = player:getFrontShield()
+  frontShieldMaxVal = player:getFrontShieldMax()
+  rearShieldVal = player:getRearShield()
+  rearShieldMaxVal = player:getRearShieldMax()
+  shieldsPercentageVal = 50 * (frontShieldVal / frontShieldMaxVal + rearShieldVal / rearShieldMaxVal)
+  return {hull = hullVal, hullMax = hullMaxVal, shieldsUp = shieldsVal, shieldsPercentage = shieldsPercentageVal}
+:initJumpCode: |-
+  player = getPlayerShip(-1)
+  if player == nil then return {error = "No ship"} end
+  player:initJump(5.0)
