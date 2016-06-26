@@ -78,6 +78,17 @@ ino upload -m mega2560
 4. ...
 5. profit!
 
+### Install software dependencies
+
+1. ```sudo apt-get install ruby-dev```
+2. ```sudo gem install bundler```
+3. ```bundle```
+
+Ensure your user account has access to the USB port:
+
+4. ```sudo adduser `whoami` dialout``
+5. ```sudo reboot```
+
 ### Running the physical-client
 Starting the client is easy:
 ```ruby physical-client.rb```
